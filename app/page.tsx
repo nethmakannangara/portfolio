@@ -1,11 +1,11 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/home/Hero";
 
 export default function Home() {
   return (
-    <>
-      <Navbar /> 
-    </>
+    <main className="flex flex-col w-full">
+      <Hero />
+      
+      {/* Other sections (e.g. About, Education, Projects, Contact) can be imported and added here */}
+    </main>
   );
 }
