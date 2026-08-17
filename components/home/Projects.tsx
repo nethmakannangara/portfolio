@@ -184,14 +184,14 @@ function ProjectCard({ project, className }: ProjectCardProps) {
       <div>
         
         {/* Image Slider Wrapper */}
-        <div className="bg-zinc-50 border border-zinc-100 rounded-2xl flex items-center justify-center relative overflow-hidden aspect-[16/10] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-100/50 via-zinc-50 to-zinc-50 group/slider select-none">
+        <div className="bg-white border border-zinc-150 rounded-2xl flex items-center justify-center relative overflow-hidden aspect-video group/slider select-none">
           {images.length > 0 ? (
             <div className="w-full h-full flex items-center justify-center relative">
               {/* Active Slide Image */}
               <img
                 src={images[currentIndex]}
                 alt={`${project.title} screenshot ${currentIndex + 1}`}
-                className="w-16 h-16 object-contain p-2 transition-all duration-300 select-none pointer-events-none"
+                className="w-full h-full object-contain transition-all duration-300 select-none pointer-events-none"
               />
 
               {/* Slide Navigation Overlay (visible on hover) */}
