@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[85vh] w-full flex-col items-center justify-center bg-white px-6 font-sans text-zinc-800 md:px-10">
+    <section
+    id="home" 
+    className="relative flex min-h-[85vh] w-full flex-col items-center justify-center bg-white px-6 font-sans text-zinc-800 md:px-10">
       {/* Background Soft Glow */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-50/20 via-white to-white" />
 
