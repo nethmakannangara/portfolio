@@ -111,4 +111,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-**Nethma Kannangara** — [nethmakannangara007@gmail.com](mailto:nethmakannangara007@gmail.com) — [LinkedIn](www.linkedin.com/in/nethma-chathuranga) — [GitHub](https://github.com/nethmakannangara)
+**Nethma Kannangara** — [nethmakannangara007@gmail.com](mailto:nethmakannangara007@gmail.com) — [LinkedIn](https://www.linkedin.com/in/nethma-chathuranga/) — [GitHub](https://github.com/nethmakannangara)
