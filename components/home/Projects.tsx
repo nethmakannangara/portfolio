@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { projectsData, ProjectItem } from "@/data/projects";
+import ProjectCard from "@/components/ui/ProjectCard";
 
 export default function Projects() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -83,7 +84,7 @@ export default function Projects() {
             </div>
 
             {/* Downward indicator info & Pagination dots */}
-            <div className="flex flex-row justify-between items-center w-full mt-6 pr-4 select-none">
+            <div className="flex flex-row justify-between items-center w-full mt-3 pr-4 select-none">
               
               {/* Pagination Dots (matching active page scroll state) */}
               <div className="flex items-center gap-2">
@@ -148,129 +149,4 @@ export default function Projects() {
   );
 }
 
-/* Sub-Component: ProjectCard with internal image carousel controls */
-interface ProjectCardProps {
-  project: ProjectItem;
-  className?: string;
-}
 
-function ProjectCard({ project, className }: ProjectCardProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const images = project.images || [];
-
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (images.length > 0) {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }
-  };
-
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (images.length > 0) {
-      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    }
-  };
-
-  return (
-    <div
-      className={cn(
-        "bg-white border border-zinc-150 rounded-[24px] p-5 shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] transition-all duration-300 group flex flex-col justify-between",
-        className
-      )}
-    >
-      <div>
-        
-        {/* Image Slider Wrapper */}
-        <div className="bg-white border border-zinc-150 rounded-2xl flex items-center justify-center relative overflow-hidden aspect-video group/slider select-none">
-          {images.length > 0 ? (
-            <div className="w-full h-full flex items-center justify-center relative">
-              {/* Active Slide Image */}
-              <img
-                src={images[currentIndex]}
-                alt={`${project.title} screenshot ${currentIndex + 1}`}
-                className="w-full h-full object-contain transition-all duration-300 select-none pointer-events-none"
-              />
-
-              {/* Slide Navigation Overlay (visible on hover) */}
-              {images.length > 1 && (
-                <>
-                  {/* Previous Chevron */}
-                  <button
-                    onClick={handlePrev}
-                    className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 border border-zinc-200/80 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
-                    aria-label="Previous image"
-                  >
-                    <svg className="w-4 h-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-
-                  {/* Next Chevron */}
-                  <button
-                    onClick={handleNext}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 border border-zinc-200/80 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
-                    aria-label="Next image"
-                  >
-                    <svg className="w-4 h-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-
-                  {/* Slider Pagination Dots */}
-                  <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
-                    {images.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setCurrentIndex(i);
-                        }}
-                        className={cn(
-                          "w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                          i === currentIndex ? "bg-emerald-500 w-3.5" : "bg-zinc-300"
-                        )}
-                        aria-label={`Go to image ${i + 1}`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-widest group-hover:scale-105 transition-transform duration-300">
-              [ Project Thumbnail ]
-            </span>
-          )}
-        </div>
-
-        {/* Project Title */}
-        <h3 className="font-space-grotesk text-lg font-bold text-zinc-950 mt-4 leading-snug">
-          {project.title}
-        </h3>
-
-        {/* Project Description */}
-        <p className="text-xs text-zinc-500 mt-2 leading-relaxed h-12 overflow-hidden text-ellipsis">
-          {project.description}
-        </p>
-
-      </div>
-
-      {/* Tech Tags */}
-      <div className="flex flex-wrap gap-2 mt-4">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="bg-zinc-50/80 border border-zinc-100 text-zinc-600 px-2.5 py-0.5 rounded-md font-mono text-[9px] font-semibold tracking-tight"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-    </div>
-  );
-}
