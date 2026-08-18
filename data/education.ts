@@ -16,7 +16,7 @@ export const educationData: EducationItem[] = [
     institution: "C.W.W. Kannangara Central College",
     description: "Completed primary and secondary education, majoring in Combined Mathematics, Physics, and Chemistry for the G.C.E. Advanced Level examination.",
     isActive: false,
-    image: "/globe.svg",
+    image: "/school_logo.png",
   },
   {
     id: "2",
@@ -25,15 +25,15 @@ export const educationData: EducationItem[] = [
     institution: "Institute of Computer Engineering Technology",
     description: "Built a foundation in programming, data structures, and databases, with hands-on coursework in web development and software design principles.",
     isActive: false,
-    image: "/window.svg",
+    image: "/icet_logo.png",
   },
   {
     id: "3",
     period: "2025 — present",
-    degree: "B.Sc. (Hons) IT",
+    degree: "B.Sc. (Hons) IT (UG)",
     institution: "University of Kelaniya",
     description: "Studying Software Architecture, Algorithms, Databases, UI Engineering, Embedded Systems, and Artificial Intelligence. Participating in local hackathons and leading the open-source developer club.",
     isActive: true,
-    image: "/window.svg",
+    image: "/university_logo.png",
   }
 ];
