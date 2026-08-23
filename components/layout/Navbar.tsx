@@ -22,6 +22,12 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const cvRequestMailto = `mailto:nethmakannangara.contact@gmail.com?subject=${encodeURIComponent(
+  "Request for CV - Nethma Kannangara"
+)}&body=${encodeURIComponent(
+  "Dear Nethma,\n\nI hope this email finds you well.\n\nI was impressed by your portfolio and would like to request a copy of your CV/resume to review for potential opportunities.\n\nThank you for your time.\n\nBest regards,\n[Your Name]\n[Your Company/Organization]"
+)}`;
+
 export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/portfolio_page_logo.jpg" }: NavbarProps) {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
@@ -89,18 +95,17 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
         )}
       >
         {/* Logo Section */}
-        <Link href="/" className="group flex items-center gap-2">
-          {logoSrc ? (
+        <Link href="/" className="group flex items-center gap-3">
+          {logoSrc && (
             <img
               src={logoSrc}
               alt={logoText}
-              className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-9 w-auto rounded-full object-contain transition-transform duration-300 group-hover:scale-105"
             />
-          ) : (
-            <span className="font-space-grotesk text-2xl font-extrabold tracking-tighter text-zinc-900 transition-colors duration-300 group-hover:text-emerald-600">
-              {logoText}
-            </span>
           )}
+          <span className="font-space-grotesk text-lg font-bold tracking-tight text-zinc-900 transition-colors duration-300 group-hover:text-emerald-600">
+            {logoText}
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -151,13 +156,13 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
 
         {/* Desktop CTA Action Button */}
         <div className="hidden items-center md:flex">
-          <Link href="#contact">
+          <a href={cvRequestMailto}>
             <Button
               className="relative overflow-hidden rounded-full bg-zinc-900 px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105 hover:bg-zinc-800 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] border-transparent"
             >
-              Start a Project
+              Request CV
             </Button>
-          </Link>
+          </a>
         </div>
 
         {/* Mobile Hamburger toggle */}
@@ -214,11 +219,11 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
               className="flex flex-col gap-4"
             >
               <div className="h-[1px] w-full bg-zinc-200" />
-              <Link href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+              <a href={cvRequestMailto} onClick={() => setIsMobileMenuOpen(false)}>
                 <Button className="w-full rounded-full bg-zinc-900 py-6 font-mono text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-zinc-800">
-                  Start a Project
+                  Request CV
                 </Button>
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         )}

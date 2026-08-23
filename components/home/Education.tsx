@@ -22,7 +22,7 @@ export default function Education() {
       </div>
 
       {/* Horizontal Scroll Timeline Wrapper */}
-      <div className="w-full overflow-x-auto py-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing">
+      <div className="hidden md:block w-full overflow-x-auto py-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing">
         <div className="min-w-[1000px] md:min-w-0 md:w-full relative h-[500px] flex items-center">
           
           {/* Main Horizontal Connector Line */}
@@ -103,6 +103,65 @@ export default function Education() {
           </div>
 
         </div>
+      </div>
+
+      {/* Mobile Vertical Timeline */}
+      <div className="relative md:hidden flex flex-col gap-8 pl-8 mt-10">
+        {/* Main Vertical Connector Line */}
+        <div className="absolute left-[13px] top-2 bottom-2 w-[3px] bg-emerald-400/70" />
+
+        {educationData.map((item) => (
+          <div key={item.id} className="relative w-full">
+            {/* Circle Connection Node */}
+            <div
+              className={cn(
+                "absolute left-[-28px] top-2 w-5.5 h-5.5 rounded-full border-[3.5px] border-white z-20 shadow-sm transition-colors duration-300",
+                item.isActive ? "bg-emerald-500" : "bg-zinc-300"
+              )}
+            />
+
+            {/* Content Card */}
+            <div
+              className="w-full bg-white border border-zinc-150 rounded-2xl p-4.5 shadow-[0_6px_24px_rgba(0,0,0,0.05)] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(16,185,129,0.08)] hover:scale-[1.02] z-30"
+            >
+              {/* Card Header: Logo, Year & Institution */}
+              <div className="flex items-center gap-3 mb-3 text-left">
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.institution}
+                    className="w-11 h-11 rounded-full border border-zinc-200/60 object-contain p-1.5 bg-zinc-50 shrink-0"
+                  />
+                )}
+                <div>
+                  {/* Year Tag */}
+                  <span
+                    className={cn(
+                      "font-mono text-xs font-bold uppercase tracking-wider block",
+                      item.isActive ? "text-emerald-700" : "text-zinc-600"
+                    )}
+                  >
+                    {item.period}
+                  </span>
+                  {/* School/College */}
+                  <p className="text-xs font-semibold text-zinc-700 italic mt-0.5 leading-tight">
+                    {item.institution}
+                  </p>
+                </div>
+              </div>
+
+              {/* Degree */}
+              <h4 className="font-space-grotesk text-sm font-bold text-zinc-950 text-left leading-snug">
+                {item.degree}
+              </h4>
+
+              {/* Description */}
+              <p className="text-xs text-zinc-650 mt-2 text-left leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
