@@ -32,14 +32,14 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
   return (
     <div
       className={cn(
-        "bg-white border border-zinc-150 rounded-[24px] p-5 shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] transition-all duration-300 group flex flex-col justify-between",
+        "bg-white dark:bg-zinc-900 border border-zinc-150 dark:border-zinc-800/80 rounded-[24px] p-5 shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.06)] transition-all duration-300 group flex flex-col justify-between",
         className
       )}
     >
       <div>
         
         {/* Image Slider Wrapper */}
-        <div className="bg-white border border-zinc-150 rounded-2xl flex items-center justify-center relative overflow-hidden aspect-video group/slider select-none">
+        <div className="bg-white dark:bg-zinc-950 border border-zinc-150 dark:border-zinc-800 rounded-2xl flex items-center justify-center relative overflow-hidden aspect-video group/slider select-none">
           {images.length > 0 ? (
             <div className="w-full h-full flex items-center justify-center relative">
               {/* Active Slide Image */}
@@ -55,21 +55,21 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
                   {/* Previous Chevron */}
                   <button
                     onClick={handlePrev}
-                    className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 border border-zinc-200/80 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 dark:bg-zinc-900/95 border border-zinc-200/80 dark:border-zinc-800 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white dark:hover:bg-zinc-800 hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
                     aria-label="Previous image"
                   >
-                    <svg className="w-4 h-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    <svg className="w-4 h-4 text-zinc-700 dark:text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
 
                   {/* Next Chevron */}
                   <button
                     onClick={handleNext}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 border border-zinc-200/80 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 dark:bg-zinc-900/95 border border-zinc-200/80 dark:border-zinc-800 flex items-center justify-center shadow-sm opacity-0 group-hover/slider:opacity-100 transition-opacity hover:bg-white dark:hover:bg-zinc-800 hover:scale-105 duration-200 active:scale-95 cursor-pointer z-10"
                     aria-label="Next image"
                   >
-                    <svg className="w-4 h-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <svg className="w-4 h-4 text-zinc-700 dark:text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -86,7 +86,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
                         }}
                         className={cn(
                           "w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                          i === currentIndex ? "bg-emerald-500 w-3.5" : "bg-zinc-300"
+                          i === currentIndex ? "bg-emerald-500 w-3.5" : "bg-zinc-300 dark:bg-zinc-700"
                         )}
                         aria-label={`Go to image ${i + 1}`}
                       />
@@ -103,12 +103,12 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
         </div>
 
         {/* Project Title */}
-        <h3 className="font-space-grotesk text-lg font-bold text-zinc-950 mt-4 leading-snug">
+        <h3 className="font-space-grotesk text-lg font-bold text-zinc-950 dark:text-white mt-4 leading-snug">
           {project.title}
         </h3>
 
         {/* Project Description */}
-        <p className="text-xs text-zinc-500 mt-3 leading-relaxed h-15 overflow-hidden line-clamp-4 text-ellipsis">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-3 leading-relaxed h-15 overflow-hidden line-clamp-4 text-ellipsis">
           {project.description}
         </p>
 
@@ -121,7 +121,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-zinc-50/80 border border-zinc-100 text-zinc-600 px-2.5 py-0.5 rounded-md font-mono text-[9px] font-semibold tracking-tight"
+              className="bg-zinc-50/80 dark:bg-zinc-800/40 border border-zinc-100 dark:border-zinc-800 text-zinc-600 dark:text-zinc-450 px-2.5 py-0.5 rounded-md font-mono text-[9px] font-semibold tracking-tight"
             >
               {tag}
             </span>
@@ -130,13 +130,13 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
 
         {/* Action Links */}
         {(project.github || project.deploy) && (
-          <div className="flex items-center gap-4 pt-3 border-t border-zinc-100">
+          <div className="flex items-center gap-4 pt-3 border-t border-zinc-100 dark:border-zinc-800">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-emerald-600 transition-colors duration-200 group/link"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 group/link"
               >
                 <svg
                   className="w-4 h-4 transition-transform group-hover/link:-translate-y-0.5"
@@ -158,7 +158,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
                 href={project.deploy}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 hover:text-emerald-600 transition-colors duration-200 group/link"
+                className="flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-200 group/link"
               >
                 <svg
                   className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"

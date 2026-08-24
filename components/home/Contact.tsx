@@ -12,29 +12,29 @@ export default function Contact() {
       {/* Accent Tag Line */}
       <div className="flex items-center gap-3 justify-center">
         <span className="h-[2px] w-8 bg-emerald-500 rounded" />
-        <span className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-600">
+        <span className="font-mono text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-500">
           Get In Touch
         </span>
       </div>
 
       {/* Heading */}
-      <h2 className="font-space-grotesk text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl max-w-2xl mt-6 leading-tight">
+      <h2 className="font-space-grotesk text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-5xl max-w-2xl mt-6 leading-tight">
         Let's create something legendary together.
       </h2>
 
       {/* Subheading */}
-      <p className="text-zinc-500 text-sm sm:text-base leading-relaxed max-w-xl mt-6 font-normal">
+      <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl mt-6 font-normal">
         Whether you have a project idea, want to talk design, or just say hello - my inbox is always open.
       </p>
 
       {/* Email Card Box */}
-      <div className="mt-12 bg-zinc-50/40 border border-zinc-150 rounded-[24px] px-8 py-8 max-w-lg w-full shadow-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] transition-shadow duration-300 flex flex-col items-center">
-        <span className="font-mono text-[10px] font-bold text-zinc-450 uppercase tracking-widest">
+      <div className="mt-12 bg-zinc-50/40 dark:bg-zinc-900/30 border border-zinc-150 dark:border-zinc-800 rounded-[24px] px-8 py-8 max-w-lg w-full shadow-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] transition-all duration-300 flex flex-col items-center">
+        <span className="font-mono text-[10px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-widest">
           Email Me Directly
         </span>
         <a
           href={`mailto:${emailAddress}`}
-          className="font-serif text-base sm:text-lg md:text-xl font-bold text-zinc-950 mt-2.5 hover:text-emerald-600 transition-colors duration-200 select-all break-all text-center"
+          className="font-serif text-base sm:text-lg md:text-xl font-bold text-zinc-950 dark:text-white mt-2.5 hover:text-emerald-600 dark:hover:text-emerald-450 transition-colors duration-200 select-all break-all text-center"
         >
           {emailAddress}
         </a>
@@ -42,7 +42,7 @@ export default function Contact() {
 
       {/* CTA Send Button */}
       <a href={`mailto:${emailAddress}`} className="mt-6">
-        <Button className="rounded-full bg-zinc-950 px-8 py-5 min-w-[220px] font-mono text-xs font-bold uppercase tracking-widest text-white transition-all hover:scale-105 hover:bg-zinc-800 shadow-sm">
+        <Button className="rounded-full bg-zinc-950 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 px-8 py-5 min-w-[220px] font-mono text-xs font-bold uppercase tracking-widest text-white transition-all hover:scale-105 hover:bg-zinc-800 shadow-sm">
           Send A Message
         </Button>
       </a>

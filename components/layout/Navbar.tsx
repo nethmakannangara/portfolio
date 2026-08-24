@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -33,10 +33,34 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
   const [activeSection, setActiveSection] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   // Monitor scroll for styling updates
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+    if (initialTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
@@ -90,8 +114,8 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
         className={cn(
           "fixed top-0 left-0 right-0 z-50 flex h-20 items-center justify-between border-b px-6 transition-all duration-300 md:px-10",
           isScrolled
-            ? "border-zinc-200/80 bg-white/90 backdrop-blur-md shadow-sm"
-            : "border-transparent bg-white/50 backdrop-blur-sm"
+            ? "border-zinc-200/80 bg-white/90 backdrop-blur-md shadow-sm dark:border-zinc-800/80 dark:bg-zinc-950/90"
+            : "border-transparent bg-white/50 backdrop-blur-sm dark:bg-zinc-950/50"
         )}
       >
         {/* Logo Section */}
@@ -103,7 +127,7 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
               className="h-9 w-auto rounded-full object-contain transition-transform duration-300 group-hover:scale-105"
             />
           )}
-          <span className="font-space-grotesk text-lg font-bold tracking-tight text-zinc-900 transition-colors duration-300 group-hover:text-emerald-600">
+          <span className="font-space-grotesk text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 transition-colors duration-300 group-hover:text-emerald-600">
             {logoText}
           </span>
         </Link>
@@ -125,7 +149,7 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
                     onClick={() => handleNavLinkClick(link.href)}
                     className={cn(
                       "font-mono text-xs font-semibold tracking-widest uppercase transition-colors duration-300",
-                      active ? "text-emerald-600" : "text-zinc-600 hover:text-black"
+                      active ? "text-emerald-600" : "text-zinc-655 hover:text-black dark:text-zinc-400 dark:hover:text-white"
                     )}
                   >
                     {link.label}
@@ -154,25 +178,44 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
           </ul>
         </nav>
 
-        {/* Desktop CTA Action Button */}
-        <div className="hidden items-center md:flex">
+        {/* Desktop CTA Action Button & Theme Toggle */}
+        <div className="hidden items-center gap-4 md:flex">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 text-zinc-800 transition-all duration-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
+
           <a href={cvRequestMailto}>
             <Button
-              className="relative overflow-hidden rounded-full bg-zinc-900 px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105 hover:bg-zinc-800 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] border-transparent"
+              className="relative overflow-hidden rounded-full bg-zinc-900 px-6 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105 hover:bg-zinc-800 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] border-transparent dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               Request CV
             </Button>
           </a>
         </div>
 
-        {/* Mobile Hamburger toggle */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 text-zinc-800 transition-colors duration-200 hover:bg-zinc-100 md:hidden"
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* Mobile Hamburger & Theme Toggle */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={toggleTheme}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 text-zinc-800 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+          
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 text-zinc-800 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </motion.header>
 
       {/* Mobile Menu Overlay */}
@@ -183,7 +226,7 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-white/98 px-6 pt-28 pb-10 backdrop-blur-xl border-t border-zinc-100 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-white/98 px-6 pt-28 pb-10 backdrop-blur-xl border-t border-zinc-100 dark:bg-zinc-950/98 dark:border-zinc-900 md:hidden"
           >
             <nav className="flex flex-col gap-6">
               <ul className="flex flex-col gap-6">
@@ -201,7 +244,7 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
                         onClick={() => handleNavLinkClick(link.href)}
                         className={cn(
                           "block font-space-grotesk text-3xl font-bold tracking-tight transition-colors duration-200",
-                          active ? "text-emerald-600" : "text-zinc-700 hover:text-black"
+                          active ? "text-emerald-600" : "text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
                         )}
                       >
                         {link.label}
@@ -218,9 +261,9 @@ export default function Navbar({ logoText = "Nethma Kannangara", logoSrc = "/por
               transition={{ delay: navLinks.length * 0.05 }}
               className="flex flex-col gap-4"
             >
-              <div className="h-[1px] w-full bg-zinc-200" />
+              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-800" />
               <a href={cvRequestMailto} onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-full rounded-full bg-zinc-900 py-6 font-mono text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-zinc-800">
+                <Button className="w-full rounded-full bg-zinc-900 py-6 font-mono text-sm font-bold uppercase tracking-wider text-white transition-all hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
                   Request CV
                 </Button>
               </a>
